@@ -8,6 +8,8 @@
 #ifndef _COMINTERFACE_H_
 #define _COMINTERFACE_H_
 
+#include <string>
+
 /**
  * @brief   Base interface for various specific communication
  *          interfaces. It allows to use polymorphism
@@ -103,6 +105,12 @@ public:
      * @return Time in milliseconds
      */
     virtual unsigned int GetReadTimeout() = 0;
+
+    /**
+     * @brief Get the version of the library
+     * @return Version in a format X.X.X
+     */
+    std::string GetVersion() { return std::string("0.1.0"); }
 };
 
 #endif // _COMINTERFACE_H_
