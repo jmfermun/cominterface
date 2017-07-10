@@ -2,44 +2,77 @@
 // Name        : example-cominterface.cpp
 // Author      : Juan Manuel Fernández Muñoz
 // Date        : January, 2017
-// Description : Example for the Serial Port and Socket interfaces
+// Description : Example for the Serial Port and Socket (server) interfaces
 //============================================================================
 
 #include <iostream>
 #include <string>
+#include <stdlib.h>
 
-#include "comserial.h"
-#include "comsocket.h"
+#include "cominterface/comserial.h"
+#include "cominterface/comsocket.h"
 
 int main()
 {
-    ComInterface *interface;    // Interface handler
-    std::string selection;      // Interface selection
+    ComInterface *interface;        // Interface handler
+    std::string sel_interface;      // User interface selection
+    std::string sel_port;           // User port selection
 
-    std::cout << "Select the interface (serial / socket): ";
+    std::string description =
+    "Program options:\n"\
+    "- Interface:\n"\
+    "  + serial: use of the serial port.\n"\
+    "  + socket: create a socket server waiting for incoming connections.\n"\
+    "- Port:\n"\
+    "  + If Interface is serial, it is the name of the serial port to use, e.g. COM1.\n"\
+    "  + If Interface is socket, it is the TCP port to use.\n"\
+    "Note: You can use a terminal program to test this program.\n";
 
-    // Wait for the user selection
-    std::getline(std::cin, selection);
+    // Print the program options description
+    std::cout << description << std::endl;
 
-    // Create the selected interface
-    if (selection == "serial")
-        interface = new ComSerial("COM1", 38400, 8, 1, 'n', 'h', 1000);
-    else if (selection == "socket")
-        interface = new ComSocket("192.168.1.100", 3444, 1000);
+    // User interface selection
+    std::cout << "Interface = ";
+    std::getline(std::cin, sel_interface);
+
+    // User port selection
+    std::cout << "Port = ";
+    std::getline(std::cin, sel_port);
+
+    // Create the selected interface with the given port
+    if (sel_interface == "serial")
+        interface = new ComSerial(sel_port, 38400, 8, 1, 'n', 'h', 1000);
+    else if (sel_interface == "socket")
+    {
+        interface = new ComSocket("", atoi(sel_port.c_str()), 1000);
+
+        // Give it 10 seconds to accept incoming connections
+        static_cast<ComSocket*>(interface)->SetOpenTimeout(10000);
+    }
     else
+    {
+        std::cout << "Invalid interface.\n"
+                  << "Press Enter for exit." << std::endl;
+
+        // Wait until enter is pressed
+        std::cin.ignore();
+
         return 0;
+    }
 
     // Try to open the interface
     if (interface->Open())
     {
         std::string command;        // Command to send
         char receive_buffer[128];   // Buffer for the received data
+        int transmitted, received;  // Number of bytes transmitted or received
 
-        std::cout << "Enter your command or just press Enter without any input for exit!\n" << std::endl;
+        std::cout << "\nEnter your command or just press Enter without any input for exit.\n" << std::endl;
 
         while (true)
         {
             // Wait for the user input
+            std::cout << "Tx: ";
             std::getline(std::cin, command);
 
             // if the user inputs Enter, the loop finishes
@@ -47,10 +80,25 @@ int main()
                 break;
 
             // Send data through the interface
-            if (interface->Write(command.c_str(), command.length()) != static_cast<int>(command.length()))
-                std::cout << "Incomplete data transmission" << std::endl;
+            transmitted = interface->Write(command.c_str(), command.length());
 
-            int received = 0;
+            // Check the transmission
+            if (transmitted == -1)
+            {
+                std::cout << "\nError transmitting data.\n"
+                          << "Press Enter for exit." << std::endl;
+
+                // Wait until enter is pressed
+                std::cin.ignore();
+
+                break;
+            }
+            else if (transmitted != static_cast<int>(command.length()))
+                std::cout << "Incomplete data transmission." << std::endl;
+
+            received = 0;
+
+            std::cout << "Rx: ";
 
             // Receive data from the interface
             do
@@ -72,10 +120,30 @@ int main()
             } while (received > 0);
 
             std::cout << std::endl;
+
+            // Check the reception
+            if (received == -1)
+            {
+                std::cout << "\nError receiving data.\n"
+                          << "Press Enter for exit." << std::endl;
+
+                // Wait until enter is pressed
+                std::cin.ignore();
+
+                break;
+            }
         }
 
         // Close the interface
         interface->Close();
+    }
+    else
+    {
+        std::cout << "\nError opening.\n"
+                  << "Press Enter for exit." << std::endl;
+
+        // Wait until enter is pressed
+        std::cin.ignore();
     }
 
     // Free the interface resources

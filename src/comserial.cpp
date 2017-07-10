@@ -2,10 +2,12 @@
  * @file    comserial.cpp
  * @author  Juan Manuel Fernández Muñoz
  * @date    January, 2017
- * @brief   Serial Port communication interface implementation
+ * @brief   Serial Port communication interface implementation.
  */
 
-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
+#include <boost/predef.h>
+
+#if !defined(BOOST_OS_WINDOWS) && !defined(BOOST_OS_CYGWIN)
 #include <sys/file.h>
 #endif
 
@@ -14,7 +16,7 @@
 #include <boost/bind.hpp>
 #include <boost/chrono.hpp>
 
-#include "comserial.h"
+#include "cominterface/comserial.h"
 
 ////////////////////
 // Public Methods //

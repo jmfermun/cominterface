@@ -2,13 +2,18 @@
  * @file    comsocket.cpp
  * @author  Juan Manuel Fernández Muñoz
  * @date    January, 2017
- * @brief   TCP/IP Socket communication interface implementation
+ * @brief   TCP/IP Socket communication interface implementation.
  */
+
+// Under Windows XP, Windows Server 2003 or older, this class
+// must be compiled with the flag BOOST_ASIO_ENABLE_CANCELIO.
+// This allows to cancel the asynchronous operations.
+#define BOOST_ASIO_ENABLE_CANCELIO
 
 #include <boost/bind.hpp>
 #include <boost/chrono.hpp>
 
-#include "comsocket.h"
+#include "cominterface/comsocket.h"
 
 ////////////////////
 // Public Methods //
