@@ -9,8 +9,8 @@
 #include <string>
 #include <stdlib.h>
 
-#include "cominterface/comserial.h"
-#include "cominterface/comsocket.h"
+#include "cominterface/comserial.hpp"
+#include "cominterface/comsocket.hpp"
 
 int main()
 {

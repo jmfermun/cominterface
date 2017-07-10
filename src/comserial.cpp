@@ -16,7 +16,7 @@
 #include <boost/bind.hpp>
 #include <boost/chrono.hpp>
 
-#include "cominterface/comserial.h"
+#include "cominterface/comserial.hpp"
 
 ////////////////////
 // Public Methods //

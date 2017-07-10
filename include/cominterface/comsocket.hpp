@@ -5,13 +5,13 @@
  * @brief   TCP/IP Socket communication interface header.
  */
 
-#ifndef _COMSOCKET_H_
-#define _COMSOCKET_H_
+#ifndef _COMSOCKET_HPP_
+#define _COMSOCKET_HPP_
 
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 
-#include "cominterface/cominterface.h"
+#include "cominterface/cominterface.hpp"
 
 /**
  * @brief TCP/IP Socket communication interface.
@@ -151,4 +151,4 @@ private:
     void timeout_accept_handler(const boost::system::error_code& error);
 };
 
-#endif // _COMSOCKET_H_
+#endif // _COMSOCKET_HPP_

@@ -13,7 +13,7 @@
 #include <boost/bind.hpp>
 #include <boost/chrono.hpp>
 
-#include "cominterface/comsocket.h"
+#include "cominterface/comsocket.hpp"
 
 ////////////////////
 // Public Methods //

@@ -5,8 +5,8 @@
  * @brief   Base communication interface header.
  */
 
-#ifndef _COMINTERFACE_H_
-#define _COMINTERFACE_H_
+#ifndef _COMINTERFACE_HPP_
+#define _COMINTERFACE_HPP_
 
 #include <string>
 
@@ -113,4 +113,4 @@ public:
     std::string GetVersion() { return std::string("0.1.0"); }
 };
 
-#endif // _COMINTERFACE_H_
+#endif // _COMINTERFACE_HPP_

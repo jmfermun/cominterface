@@ -5,13 +5,13 @@
  * @brief   Serial Port communication interface header.
  */
 
-#ifndef _COMSERIAL_H_
-#define _COMSERIAL_H_
+#ifndef _COMSERIAL_HPP_
+#define _COMSERIAL_HPP_
 
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 
-#include "cominterface/cominterface.h"
+#include "cominterface/cominterface.hpp"
 
 /**
  * @brief Serial Port communication interface.
@@ -207,4 +207,4 @@ private:
     int pending_for_write();
 };
 
-#endif // _COMSERIAL_H_
+#endif // _COMSERIAL_HPP_
