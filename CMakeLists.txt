@@ -50,7 +50,7 @@ endif()
 # Installation
 install(DIRECTORY include/cominterface/
 		DESTINATION include/cominterface
-		FILES_MATCHING PATTERN "*.h")
+		FILES_MATCHING PATTERN "*.hpp")
 
 install(TARGETS ${PROJECT_NAME}
 		RUNTIME DESTINATION bin
