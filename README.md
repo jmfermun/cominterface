@@ -1,7 +1,7 @@
 ComInterface
 ============
 
-ComInterface is a c++ library for use the following communication interfaces:
+ComInterface is a C++ library for use the following communication interfaces:
 - Serial Port.
 - TCP/IP Socket.
 
