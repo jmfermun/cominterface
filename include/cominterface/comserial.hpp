@@ -157,6 +157,12 @@ public:
      */
     bool Flush();
 
+    /**
+     * @brief Send a break sequence to the serial port.
+     * @return true if function succeeds, false if not.
+     */
+    bool SendBreak();
+
 private:
     // Control de boost asio
     boost::asio::io_service m_io_service;               ///< Service for access OS resources.

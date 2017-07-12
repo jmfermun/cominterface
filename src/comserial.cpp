@@ -583,6 +583,21 @@ bool ComSerial::Flush()
     return ok;
 }
 
+bool ComSerial::SendBreak()
+{
+    boost::system::error_code ec;
+
+    // Lock for thread safe
+    boost::lock_guard<boost::mutex> lock(m_mutex);
+
+    m_port.send_break(ec);
+
+    if (ec)
+        return false;
+
+    return true;
+}
+
 /////////////////////
 // Private Methods //
 /////////////////////

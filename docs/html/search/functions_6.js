@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['sendbreak',['SendBreak',['../class_com_serial.html#a9c1e25b767d9ecd867ba567c2fa6b0f5',1,'ComSerial']]],
   ['setaddress',['SetAddress',['../class_com_socket.html#a5ab3a9d788f1fd8dbe77aeb811930618',1,'ComSocket']]],
   ['setbaudrate',['SetBaudRate',['../class_com_serial.html#a1f41d526759c46af56c3110168809be9',1,'ComSerial']]],
   ['setdatabits',['SetDataBits',['../class_com_serial.html#ad238648803b479d0a339c071942b9614',1,'ComSerial']]],
